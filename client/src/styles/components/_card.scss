@@ -1,0 +1,61 @@
+// ============================================================
+// CARD
+// Block: .card
+// ============================================================
+@use '../abstracts/mixins' as *;
+
+.card {
+  background: var(--paper);
+  border: 1px solid var(--rule);
+  border-radius: 10px;
+  padding: 1.5rem;
+  box-shadow: var(--shadow);
+  position: relative;
+
+  // ── Hero modifier (stat cards) ────────────────────────────
+  &--hero {
+    padding: 2rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    overflow: hidden;
+
+    &::after {
+      content: '';
+      position: absolute;
+      right: -20px;
+      bottom: -20px;
+      width: 120px;
+      height: 120px;
+      border-radius: 50%;
+      background: color-mix(in oklab, var(--accent) 12%, transparent);
+      filter: blur(40px);
+    }
+  }
+}
+
+// ── Stat display (used inside .card--hero) ─────────────────
+.stat {
+  &__label {
+    font-size: 0.72rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--ink-faint);
+    font-weight: 600;
+  }
+
+  &__value {
+    @include font-serif;
+    font-size: 2.5rem;
+    font-weight: 400;
+    letter-spacing: -0.03em;
+    line-height: 1;
+    color: var(--ink);
+    font-feature-settings: 'tnum' 1;
+  }
+
+  &__sub {
+    font-size: 0.85rem;
+    color: var(--ink-soft);
+  }
+}

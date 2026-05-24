@@ -1,0 +1,21 @@
+// ============================================================
+// DELTA INDICATOR
+// Block: .delta
+// ============================================================
+@use '../abstracts/mixins' as *;
+
+.delta {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  font-size: 0.78rem;
+  font-weight: 600;
+  @include font-mono;
+  padding: 2px 8px;
+  border-radius: 4px;
+
+  &--up      { color: var(--gain);      background: var(--gain-soft); }
+  &--down    { color: var(--danger);    background: var(--danger-soft); }
+  &--warn    { color: var(--warn);      background: var(--warn-soft); }
+  &--neutral { color: var(--ink-faint); background: var(--bg-elevated); }
+}

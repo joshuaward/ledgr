@@ -1,0 +1,92 @@
+// ============================================================
+// CHART CONTAINERS
+// Blocks: .chart, .alloc-bar, .alloc-legend
+// ============================================================
+@use '../abstracts/mixins' as *;
+
+// ── Recharts wrapper ─────────────────────────────────────
+.chart {
+  width: 100%;
+  height: 280px;
+  margin-top: 0.5rem;
+
+  // Recharts axis tick overrides
+  .recharts-cartesian-axis-tick-value {
+    @include font-mono;
+    font-size: 11px;
+    fill: var(--ink-faint);
+  }
+
+  .recharts-tooltip-wrapper {
+    outline: none;
+  }
+
+  // ── Custom tooltip ──────────────────────────────────────
+  &__tooltip {
+    background: var(--paper);
+    border: 1px solid var(--rule);
+    border-radius: 6px;
+    padding: 0.6rem 0.9rem;
+    box-shadow: var(--shadow);
+    font-size: 0.85rem;
+
+    .label {
+      @include font-serif;
+      font-style: italic;
+      text-transform: none;
+      letter-spacing: 0;
+      font-size: 0.9rem;
+      margin-bottom: 0.3rem;
+      color: var(--ink);
+      font-weight: 500;
+    }
+  }
+}
+
+// ── Allocation stacked bar ────────────────────────────────
+.alloc-bar {
+  height: 56px;
+  display: flex;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: var(--shadow);
+  margin: 1rem 0;
+
+  &__segment {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    position: relative;
+    transition: all 0.2s ease;
+
+    &:hover {
+      filter: brightness(1.1);
+    }
+  }
+}
+
+// ── Allocation legend ─────────────────────────────────────
+.alloc-legend {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  gap: 1rem;
+  margin-top: 0.5rem;
+
+  &__item {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.85rem;
+  }
+
+  &__swatch {
+    width: 14px;
+    height: 14px;
+    border-radius: 3px;
+    flex-shrink: 0;
+  }
+}

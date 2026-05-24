@@ -1,0 +1,15 @@
+// ============================================================
+// LOADER
+// Block: .loader
+// ============================================================
+@use '../abstracts/mixins' as *;
+
+.loader {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 4rem;
+  color: var(--ink-faint);
+  font-style: italic;
+  @include font-serif;
+}

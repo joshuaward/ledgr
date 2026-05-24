@@ -1,0 +1,39 @@
+// ============================================================
+// TYPOGRAPHY
+// ============================================================
+@use '../abstracts/mixins' as *;
+
+h1,
+h2,
+h3,
+.display {
+  @include font-serif;
+  font-weight: 400;
+  letter-spacing: -0.015em;
+  line-height: 1.1;
+  font-feature-settings: 'ss01' 1, 'ss02' 1;
+}
+
+h1 {
+  font-size: clamp(2.4rem, 4.5vw, 3.6rem);
+  font-style: italic;
+}
+
+h2 {
+  font-size: clamp(1.4rem, 2.5vw, 1.9rem);
+  font-weight: 500;
+}
+
+h3 {
+  font-size: 1.15rem;
+  font-weight: 600;
+}
+
+// Utility classes — used broadly across components
+.eyebrow {
+  @include eyebrow;
+}
+
+.mono {
+  @include font-mono;
+}

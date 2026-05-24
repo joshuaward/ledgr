@@ -1,0 +1,34 @@
+// ============================================================
+// APP SHELL LAYOUT
+// ============================================================
+@use '../abstracts/mixins' as *;
+
+.app {
+  display: grid;
+  grid-template-columns: 240px 1fr;
+  min-height: 100vh;
+  position: relative;
+  z-index: 2;
+
+  @include bp-lg {
+    grid-template-columns: 200px 1fr;
+  }
+
+  @include bp-md {
+    grid-template-columns: 1fr;
+  }
+}
+
+.main {
+  padding: 2.5rem 3rem 5rem;
+  max-width: 1400px;
+  width: 100%;
+
+  @include bp-lg {
+    padding: 2rem;
+  }
+
+  @include bp-md {
+    padding: 1.5rem 1.25rem;
+  }
+}

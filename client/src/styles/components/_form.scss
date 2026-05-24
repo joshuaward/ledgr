@@ -1,0 +1,60 @@
+// ============================================================
+// FORM ELEMENTS
+// Blocks: .field, .input, .select
+// ============================================================
+@use '../abstracts/mixins' as *;
+
+// ── Field wrapper ─────────────────────────────────────────
+.field {
+  margin-bottom: 1.25rem;
+
+  &__label {
+    font-size: 0.7rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--ink-faint);
+    font-weight: 600;
+    display: block;
+    margin-bottom: 0.5rem;
+  }
+
+  &__hint {
+    font-size: 0.78rem;
+    color: var(--ink-faint);
+    margin-top: 0.4rem;
+  }
+}
+
+// ── Shared input / select base ────────────────────────────
+%input-base {
+  background: var(--paper);
+  border: 1px solid var(--rule);
+  border-radius: 6px;
+  padding: 0.65rem 0.85rem;
+  color: var(--ink);
+  width: 100%;
+  font-size: 0.95rem;
+  transition: all 0.15s ease;
+
+  &:focus {
+    outline: none;
+    border-color: var(--accent);
+    background: var(--bg-elevated);
+    box-shadow: 0 0 0 3px color-mix(in oklab, var(--accent) 15%, transparent);
+  }
+}
+
+.input {
+  @extend %input-base;
+
+  &--money {
+    @include font-mono;
+    font-size: 1.4rem;
+    padding: 1rem 1.2rem;
+    letter-spacing: -0.01em;
+  }
+}
+
+.select {
+  @extend %input-base;
+}

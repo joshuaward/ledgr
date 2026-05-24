@@ -1,0 +1,35 @@
+// ============================================================
+// PAGE HEADER
+// Block: .page-header
+// ============================================================
+
+.page-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  padding-bottom: 2rem;
+  border-bottom: 1px solid var(--rule);
+  margin-bottom: 2.5rem;
+  gap: 2rem;
+  flex-wrap: wrap;
+
+  &__title-block {
+    flex: 1;
+    min-width: 280px;
+
+    .eyebrow {
+      margin-bottom: 0.6rem;
+      display: block;
+    }
+
+    h1 {
+      margin-bottom: 0.5rem;
+    }
+
+    p {
+      color: var(--ink-soft);
+      max-width: 56ch;
+      font-size: 1rem;
+    }
+  }
+}

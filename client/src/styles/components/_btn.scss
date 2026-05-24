@@ -1,0 +1,47 @@
+// ============================================================
+// BUTTON
+// Block: .btn
+// ============================================================
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.7rem 1.4rem;
+  border-radius: 6px;
+  background: var(--accent);
+  color: #ffffff; // always white — visible in both themes
+  font-weight: 600;
+  font-size: 0.9rem;
+  letter-spacing: 0.02em;
+  transition: all 0.15s ease;
+
+  &:hover {
+    opacity: 0.88;
+    transform: translateY(-1px);
+  }
+
+  // ── Ghost modifier ────────────────────────────────────────
+  &--ghost {
+    background: transparent;
+    color: var(--ink);
+    border: 1px solid var(--ink-faint);
+
+    &:hover {
+      background: var(--bg-elevated);
+      border-color: var(--ink-soft);
+      transform: translateY(-1px);
+    }
+  }
+
+  // ── Danger modifier ───────────────────────────────────────
+  &--danger {
+    background: var(--danger);
+
+    &:hover {
+      opacity: 0.88;
+      transform: translateY(-1px);
+    }
+  }
+}

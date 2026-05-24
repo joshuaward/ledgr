@@ -1,0 +1,53 @@
+// ============================================================
+// INSIGHT CARD
+// Block: .insight
+// ============================================================
+
+.insight {
+  border-left: 3px solid var(--info);
+  padding: 1rem 1.25rem;
+  background: color-mix(in oklab, var(--info) 5%, var(--bg-elevated));
+  border-radius: 0 6px 6px 0;
+  margin-bottom: 0.85rem;
+
+  &--warning {
+    border-left-color: var(--warn);
+    background: color-mix(in oklab, var(--warn) 5%, var(--bg-elevated));
+
+    .insight__title { color: var(--warn); }
+  }
+
+  &--good {
+    border-left-color: var(--gain);
+    background: color-mix(in oklab, var(--gain) 5%, var(--bg-elevated));
+
+    .insight__title { color: var(--gain); }
+  }
+
+  &--error {
+    border-left-color: var(--danger);
+    background: color-mix(in oklab, var(--danger) 5%, var(--bg-elevated));
+
+    .insight__title { color: var(--danger); }
+  }
+
+  &--info {
+    border-left-color: var(--info);
+    background: color-mix(in oklab, var(--info) 5%, var(--bg-elevated));
+
+    .insight__title { color: var(--info); }
+  }
+
+  &__title {
+    font-weight: 700;
+    font-size: 0.95rem;
+    margin-bottom: 0.25rem;
+    color: var(--info);
+  }
+
+  &__body {
+    color: var(--ink-soft);
+    font-size: 0.9rem;
+    line-height: 1.55;
+  }
+}

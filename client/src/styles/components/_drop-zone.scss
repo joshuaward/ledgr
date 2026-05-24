@@ -1,0 +1,58 @@
+// ============================================================
+// DROP ZONE & APPLY ROW
+// Blocks: .drop-zone, .apply-row
+// ============================================================
+
+.drop-zone {
+  border: 2px dashed var(--rule);
+  border-radius: 10px;
+  padding: 3rem 2rem;
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  color: var(--ink-soft);
+  font-size: 0.95rem;
+  background: var(--paper);
+  user-select: none;
+
+  &:hover,
+  &--dragging {
+    border-color: var(--ink);
+    background: var(--bg-elevated);
+    color: var(--ink);
+  }
+
+  &--uploading {
+    cursor: default;
+    opacity: 0.7;
+  }
+
+  &__icon {
+    font-size: 2rem;
+    margin-bottom: 0.75rem;
+    color: var(--ink-faint);
+    line-height: 1;
+  }
+}
+
+// ── Apply row (document import checklist) ─────────────────
+.apply-row {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.6rem;
+  padding: 0.5rem 0;
+  cursor: pointer;
+  font-size: 0.9rem;
+  color: var(--ink-soft);
+  border-bottom: 1px solid var(--rule);
+
+  &:last-of-type {
+    border-bottom: none;
+  }
+
+  input[type='checkbox'] {
+    margin-top: 2px;
+    accent-color: var(--ink);
+    flex-shrink: 0;
+  }
+}

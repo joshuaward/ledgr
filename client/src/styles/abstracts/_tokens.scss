@@ -1,0 +1,50 @@
+// ============================================================
+// DESIGN TOKENS — CSS custom properties for runtime theming
+// Kept as :root vars (not SCSS vars) so JS can toggle themes.
+// ============================================================
+
+:root[data-theme='light'] {
+  --bg:           #f4f4f6;
+  --bg-elevated:  #fafafa;
+  --bg-sunken:    #eaeaed;
+  --paper:        #ffffff;
+  --ink:          #0a0a0f;
+  --ink-soft:     #3a3a4a;
+  --ink-faint:    #6b6b7b;   // 5:1 vs white — passes WCAG AA
+  --rule:         #d0d0dc;
+  --accent:       #059669;   // emerald — primary actions (CTAs, links, active states)
+  --accent-soft:  #ecfdf5;
+  --gain:         #047857;   // dark emerald — positive values (income, surplus)
+  --gain-soft:    #d1fae5;
+  --danger:       #dc2626;   // red — errors, delete, destructive actions
+  --danger-soft:  #fee2e2;
+  --warn:         #ca8a04;   // amber-yellow — caution
+  --warn-soft:    #fef9c3;
+  --info:         #0369a1;   // sky blue — informational, needs category
+  --info-soft:    #e0f2fe;
+  --shadow:       0 1px 0 0 rgba(0, 0, 10, 0.04),
+                  0 8px 24px -12px rgba(0, 0, 10, 0.10);
+}
+
+:root[data-theme='dark'] {
+  --bg:           #111114;
+  --bg-elevated:  #18181c;
+  --bg-sunken:    #0b0b0d;
+  --paper:        #16161a;
+  --ink:          #e2e2e8;
+  --ink-soft:     #9898a8;
+  --ink-faint:    #80808f;   // 5:1 vs dark bg — passes WCAG AA
+  --rule:         #3c3c4e;
+  --accent:       #34d399;   // bright emerald — primary actions in dark
+  --accent-soft:  #0a2419;
+  --gain:         #6ee7b7;   // lighter emerald — positive values in dark
+  --gain-soft:    #052e16;
+  --danger:       #f87171;   // red-400 — errors, delete
+  --danger-soft:  #450a0a;
+  --warn:         #fde047;   // yellow-300 — caution
+  --warn-soft:    #2d2200;
+  --info:         #38bdf8;   // sky blue — informational (was --accent)
+  --info-soft:    #0a1e2e;
+  --shadow:       0 1px 0 0 rgba(0, 0, 0, 0.4),
+                  0 8px 24px -12px rgba(0, 0, 0, 0.6);
+}

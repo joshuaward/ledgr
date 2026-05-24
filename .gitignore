@@ -1,0 +1,12 @@
+node_modules/
+dist/
+.DS_Store
+*.log
+.env
+.env.local
+
+# Local budget data — never commit personal financial data
+server/data/db*.json
+server/data/budgets.json
+server/data/backups/
+server/data/uploads/

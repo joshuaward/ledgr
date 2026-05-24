@@ -1,0 +1,134 @@
+// ============================================================
+// SIDEBAR
+// Block: .sidebar
+// ============================================================
+@use '../abstracts/mixins' as *;
+
+.sidebar {
+  border-right: 1px solid var(--rule);
+  padding: 2rem 0;
+  display: flex;
+  flex-direction: column;
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  background: var(--bg);
+
+  @include bp-md {
+    position: relative;
+    height: auto;
+  }
+
+  // ── Brand ─────────────────────────────────────────────────
+  &__brand {
+    padding: 0 1.75rem 2rem;
+    border-bottom: 1px solid var(--rule);
+    margin-bottom: 1.25rem;
+  }
+
+  &__logo {
+    @include font-serif;
+    font-size: 1.9rem;
+    font-weight: 500;
+    font-style: italic;
+    letter-spacing: -0.03em;
+    color: var(--ink);
+    display: flex;
+    align-items: baseline;
+    gap: 0.3rem;
+
+    &::after {
+      content: '·';
+      color: var(--accent);
+      font-style: normal;
+      font-size: 1.5rem;
+    }
+  }
+
+  &__tagline {
+    font-size: 0.65rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--ink-faint);
+    margin-top: 0.3rem;
+  }
+
+  // ── Nav ───────────────────────────────────────────────────
+  &__nav {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    padding: 0 1rem;
+    gap: 2px;
+
+    @include bp-md {
+      flex-direction: row;
+      overflow-x: auto;
+    }
+  }
+
+  &__nav-link {
+    display: flex;
+    align-items: center;
+    gap: 0.85rem;
+    padding: 0.7rem 0.85rem;
+    border-radius: 6px;
+    color: var(--ink-soft);
+    font-size: 0.92rem;
+    font-weight: 500;
+    transition: all 0.15s ease;
+    position: relative;
+
+    &:hover {
+      background: var(--bg-elevated);
+      color: var(--ink);
+    }
+
+    &--active {
+      background: var(--accent-soft);
+      color: var(--accent);
+      font-weight: 700;
+      box-shadow: inset 3px 0 0 var(--accent);
+    }
+  }
+
+  &__nav-num {
+    @include font-serif;
+    font-style: italic;
+    font-size: 0.85rem;
+    opacity: 0.55;
+    width: 1.1rem;
+    display: inline-block;
+
+    .sidebar__nav-link--active & {
+      opacity: 1;
+      color: var(--accent);
+    }
+  }
+
+  // ── Footer ────────────────────────────────────────────────
+  &__footer {
+    padding: 1rem 1.75rem;
+    border-top: 1px solid var(--rule);
+  }
+
+  &__theme-toggle {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.5rem 0.75rem;
+    border-radius: 6px;
+    color: var(--ink-soft);
+    font-size: 0.85rem;
+    font-weight: 500;
+    background: var(--bg-elevated);
+    border: 1px solid var(--rule);
+    width: 100%;
+    transition: all 0.15s ease;
+
+    &:hover {
+      color: var(--ink);
+      border-color: var(--ink-soft);
+    }
+  }
+}

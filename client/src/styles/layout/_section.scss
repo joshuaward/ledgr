@@ -1,0 +1,31 @@
+// ============================================================
+// SECTION & SECTION TITLE
+// ============================================================
+@use '../abstracts/mixins' as *;
+
+.section {
+  margin-bottom: 3rem;
+}
+
+.section-title {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  margin-bottom: 1rem;
+  gap: 1rem;
+  flex-wrap: wrap;
+
+  h2 {
+    display: flex;
+    align-items: baseline;
+    gap: 0.65rem;
+
+    &::before {
+      content: attr(data-num);
+      @include font-serif;
+      font-style: italic;
+      color: var(--accent);
+      font-size: 0.85em;
+    }
+  }
+}

@@ -1,0 +1,362 @@
+// ============================================================
+// ONBOARDING WIZARD
+// Block: .onboarding
+// ============================================================
+@use '../abstracts/mixins' as *;
+
+.onboarding {
+  min-height: 100vh;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  padding: 3rem 1.5rem 5rem;
+  background: var(--bg);
+
+  &__container {
+    width: 100%;
+    max-width: 620px;
+  }
+
+  // ── Progress dots ──────────────────────────────────────
+  &__dots {
+    display: flex;
+    gap: 0.5rem;
+    justify-content: center;
+    margin-bottom: 2.5rem;
+  }
+
+  &__dot {
+    height: 7px;
+    width: 7px;
+    border-radius: 50%;
+    background: var(--rule);
+    transition: all 0.25s ease;
+
+    &--active {
+      background: var(--accent);
+      width: 22px;
+      border-radius: 4px;
+    }
+
+    &--done {
+      background: var(--gain);
+    }
+  }
+
+  // ── Step shell ────────────────────────────────────────
+  &__step {
+    display: flex;
+    flex-direction: column;
+
+    &--welcome {
+      text-align: center;
+      padding-top: 2rem;
+    }
+
+    &--done {
+      align-items: center;
+      text-align: center;
+      padding-top: 1rem;
+    }
+  }
+
+  // ── Welcome screen ────────────────────────────────────
+  &__brand {
+    @include font-serif;
+    font-size: 2rem;
+    font-style: italic;
+    font-weight: 500;
+    letter-spacing: -0.03em;
+    color: var(--ink);
+    margin-bottom: 2rem;
+
+    &::after {
+      content: '·';
+      color: var(--accent);
+      margin-left: 0.15rem;
+    }
+  }
+
+  &__headline {
+    @include font-serif;
+    font-size: clamp(2.2rem, 5vw, 3.2rem);
+    font-weight: 400;
+    letter-spacing: -0.02em;
+    line-height: 1.1;
+    margin-bottom: 1rem;
+    color: var(--ink);
+
+    em {
+      font-style: italic;
+      color: var(--accent);
+    }
+  }
+
+  &__sub {
+    color: var(--ink-soft);
+    font-size: 1rem;
+    line-height: 1.6;
+    max-width: 46ch;
+    margin: 0 auto 2.5rem;
+  }
+
+  // ── Choice grid (welcome CTAs) ────────────────────────
+  &__choice-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+    margin-bottom: 0.5rem;
+
+    @include bp-xs {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  &__choice-card {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.4rem;
+    padding: 1.5rem;
+    border-radius: 10px;
+    background: var(--paper);
+    border: 1px solid var(--rule);
+    box-shadow: var(--shadow);
+    cursor: pointer;
+    text-align: left;
+    transition: all 0.15s ease;
+
+    &:hover {
+      border-color: var(--ink-soft);
+      transform: translateY(-2px);
+      box-shadow: 0 4px 20px -4px rgba(0, 0, 10, 0.14);
+    }
+
+    &--primary {
+      background: var(--ink);
+      border-color: var(--ink);
+      color: var(--paper);
+
+      &:hover {
+        opacity: 0.88;
+        transform: translateY(-2px);
+      }
+    }
+  }
+
+  &__choice-icon  { font-size: 1.2rem; margin-bottom: 0.25rem; }
+  &__choice-title { font-weight: 700; font-size: 1rem; }
+  &__choice-desc  { font-size: 0.82rem; opacity: 0.7; line-height: 1.45; }
+
+  // ── Back button ───────────────────────────────────────
+  &__back {
+    color: var(--ink-faint);
+    font-size: 0.85rem;
+    font-weight: 500;
+    margin-bottom: 2rem;
+    transition: color 0.15s;
+    align-self: flex-start;
+
+    &:hover {
+      color: var(--ink);
+    }
+  }
+
+  // ── Step header ───────────────────────────────────────
+  &__step-header {
+    margin-bottom: 1.75rem;
+
+    .eyebrow {
+      display: block;
+      margin-bottom: 0.5rem;
+    }
+  }
+
+  &__step-title {
+    @include font-serif;
+    font-size: clamp(1.6rem, 3vw, 2.2rem);
+    font-weight: 400;
+    letter-spacing: -0.02em;
+    color: var(--ink);
+    margin-bottom: 0.5rem;
+  }
+
+  &__step-desc {
+    color: var(--ink-soft);
+    font-size: 0.95rem;
+    line-height: 1.55;
+    max-width: 52ch;
+  }
+
+  // ── Form card ────────────────────────────────────────
+  &__form-card {
+    background: var(--paper);
+    border: 1px solid var(--rule);
+    border-radius: 10px;
+    padding: 1.5rem;
+    box-shadow: var(--shadow);
+    margin-bottom: 1.5rem;
+  }
+
+  // ── Actions row ───────────────────────────────────────
+  &__actions {
+    display: flex;
+    gap: 1rem;
+    margin-top: 0.5rem;
+  }
+
+  // ── Bill entry toggle buttons ─────────────────────────
+  &__bill-actions {
+    display: flex;
+    gap: 0.75rem;
+    margin-bottom: 1rem;
+  }
+
+  &__bill-action-btn {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    padding: 0.6rem 1.1rem;
+    border-radius: 6px;
+    border: 1px solid var(--rule);
+    background: var(--paper);
+    color: var(--ink-soft);
+    font-size: 0.88rem;
+    font-weight: 600;
+    box-shadow: var(--shadow);
+    transition: all 0.15s ease;
+
+    &:hover,
+    &--active {
+      border-color: var(--ink);
+      color: var(--ink);
+      background: var(--bg-elevated);
+    }
+  }
+
+  // ── Bills list ────────────────────────────────────────
+  &__bills-list {
+    background: var(--paper);
+    border: 1px solid var(--rule);
+    border-radius: 10px;
+    margin-bottom: 1.5rem;
+    overflow: hidden;
+    box-shadow: var(--shadow);
+  }
+
+  &__bills-list-header {
+    font-size: 0.7rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--ink-faint);
+    font-weight: 600;
+    padding: 0.75rem 1.25rem;
+    background: var(--bg-elevated);
+    border-bottom: 1px solid var(--rule);
+  }
+
+  &__bills-empty {
+    padding: 2rem 1.25rem;
+    text-align: center;
+    color: var(--ink-faint);
+    font-size: 0.88rem;
+    font-style: italic;
+  }
+
+  &__bill-row {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 0.75rem 1.25rem;
+    border-bottom: 1px solid var(--rule);
+
+    &:last-child {
+      border-bottom: none;
+    }
+  }
+
+  &__bill-row-info {
+    flex: 1;
+    min-width: 0;
+  }
+
+  &__bill-name {
+    font-weight: 600;
+    font-size: 0.92rem;
+    display: block;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  &__bill-meta {
+    font-size: 0.76rem;
+    color: var(--ink-faint);
+  }
+
+  &__bill-amount {
+    font-size: 0.95rem;
+    font-weight: 600;
+    white-space: nowrap;
+  }
+
+  &__bill-delete {
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.1rem;
+    color: var(--ink-faint);
+    transition: all 0.12s ease;
+    flex-shrink: 0;
+
+    &:hover {
+      background: var(--bg-sunken);
+      color: var(--ink);
+    }
+  }
+
+  // ── Done screen ───────────────────────────────────────
+  &__done-check {
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    background: var(--gain-soft);
+    color: var(--gain);
+    font-size: 1.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 1.5rem;
+    font-weight: 700;
+  }
+
+  // ── Summary card ──────────────────────────────────────
+  &__summary {
+    width: 100%;
+    text-align: left;
+  }
+
+  &__summary-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.6rem 0;
+    border-bottom: 1px solid var(--rule);
+    font-size: 0.92rem;
+
+    &:last-child {
+      border-bottom: none;
+    }
+
+    span {
+      color: var(--ink-soft);
+    }
+
+    strong {
+      @include font-mono;
+    }
+  }
+}

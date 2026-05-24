@@ -1,0 +1,167 @@
+// ============================================================
+// BUDGET SWITCHER
+// Block: .budget-switcher
+// ============================================================
+
+.budget-switcher {
+  position: relative;
+  padding: 0 1rem;
+  margin-bottom: 0.5rem;
+
+  // ── Toggle button ─────────────────────────────────────────
+  &__toggle {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    padding: 0.55rem 0.85rem;
+    border-radius: 6px;
+    background: var(--bg-elevated);
+    border: 1px solid var(--rule);
+    color: var(--ink);
+    font-size: 0.88rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: border-color 0.15s;
+
+    &:hover {
+      border-color: var(--ink-soft);
+    }
+  }
+
+  &__name {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    max-width: 10rem;
+  }
+
+  &__arrow {
+    font-size: 0.65rem;
+    opacity: 0.55;
+    flex-shrink: 0;
+    margin-left: 0.5rem;
+  }
+
+  // ── Dropdown ──────────────────────────────────────────────
+  &__dropdown {
+    position: absolute;
+    top: calc(100% + 4px);
+    left: 1rem;
+    right: 1rem;
+    background: var(--paper);
+    border: 1px solid var(--rule);
+    border-radius: 8px;
+    box-shadow: var(--shadow);
+    z-index: 200;
+    overflow: hidden;
+    padding: 0.35rem 0;
+  }
+
+  // ── Items ─────────────────────────────────────────────────
+  &__item {
+    display: flex;
+    align-items: center;
+    gap: 0.35rem;
+    padding: 0 0.5rem;
+
+    &--active &-label {
+      font-weight: 700;
+      color: var(--ink);
+    }
+  }
+
+  &__item-label {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.55rem 0.5rem;
+    font-size: 0.85rem;
+    color: var(--ink-soft);
+    border-radius: 4px;
+    text-align: left;
+    transition: background 0.1s;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+
+    &:hover {
+      background: var(--bg-elevated);
+      color: var(--ink);
+    }
+  }
+
+  &__active-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--accent);
+    flex-shrink: 0;
+  }
+
+  &__item-actions {
+    display: flex;
+    gap: 2px;
+    flex-shrink: 0;
+  }
+
+  // ── Action buttons ────────────────────────────────────────
+  &__action {
+    width: 26px;
+    height: 26px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 4px;
+    font-size: 0.78rem;
+    color: var(--ink-faint);
+    transition: background 0.1s, color 0.1s;
+
+    &:hover {
+      background: var(--bg-elevated);
+      color: var(--ink);
+    }
+
+    &--danger:hover {
+      background: var(--danger-soft);
+      color: var(--danger);
+    }
+  }
+
+  // ── Divider ───────────────────────────────────────────────
+  &__divider {
+    height: 1px;
+    background: var(--rule);
+    margin: 0.35rem 0;
+  }
+
+  // ── New budget button ─────────────────────────────────────
+  &__new-btn {
+    display: block;
+    width: 100%;
+    padding: 0.55rem 1rem;
+    font-size: 0.83rem;
+    font-weight: 600;
+    color: var(--accent);
+    text-align: left;
+    transition: background 0.1s;
+
+    &:hover {
+      background: var(--accent-soft);
+    }
+  }
+
+  // ── Inline edit rows ──────────────────────────────────────
+  &__rename-row {
+    display: flex;
+    align-items: center;
+    gap: 0.35rem;
+    width: 100%;
+    padding: 0.35rem;
+  }
+
+  &__create-row {
+    padding: 0.5rem 0.75rem;
+  }
+}

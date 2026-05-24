@@ -1,0 +1,28 @@
+// ============================================================
+// PILL / BADGE
+// Block: .pill
+// ============================================================
+
+.pill {
+  display: inline-flex;
+  align-items: center;
+  padding: 2px 8px;
+  border-radius: 4px;
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  background: var(--bg-elevated);
+  color: var(--ink-faint);
+
+  // ── 50/30/20 budget categories ────────────────────────────
+  &--needs   { background: var(--info-soft);   color: var(--info); }
+  &--wants   { background: var(--warn-soft);   color: var(--warn); }
+  &--savings { background: var(--gain-soft);   color: var(--gain); }
+
+  // ── Semantic status variants ──────────────────────────────
+  &--gain    { background: var(--gain-soft);   color: var(--gain); }
+  &--info    { background: var(--info-soft);   color: var(--info); }
+  &--warn    { background: var(--warn-soft);   color: var(--warn); }
+  &--danger  { background: var(--danger-soft); color: var(--danger); }
+}

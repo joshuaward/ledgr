@@ -1,0 +1,38 @@
+// ============================================================
+// LEDGR — Main SCSS Entry Point
+// Architecture: 7-1 pattern with BEM methodology
+// ============================================================
+
+// Abstracts (no output — variables, mixins, functions)
+@use 'abstracts/tokens';
+@use 'abstracts/mixins';
+
+// Base (global resets & element defaults)
+@use 'base/reset';
+@use 'base/typography';
+@use 'base/scrollbar';
+
+// Layout (structural containers)
+@use 'layout/app';
+@use 'layout/grid';
+@use 'layout/section';
+
+// Components (reusable UI blocks)
+@use 'components/sidebar';
+@use 'components/budget-switcher';
+@use 'components/page-header';
+@use 'components/card';
+@use 'components/btn';
+@use 'components/form';
+@use 'components/table';
+@use 'components/pill';
+@use 'components/delta';
+@use 'components/insight';
+@use 'components/progress';
+@use 'components/chart';
+@use 'components/loader';
+@use 'components/drop-zone';
+
+// Pages (page-specific blocks)
+@use 'pages/pay-period';
+@use 'pages/onboarding';

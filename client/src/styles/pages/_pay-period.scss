@@ -1,0 +1,225 @@
+// ============================================================
+// PAY PERIOD CARD (Dashboard)
+// Block: .pay-period
+// ============================================================
+@use '../abstracts/mixins' as *;
+
+.pay-period {
+  background: var(--paper);
+  border: 1px solid var(--rule);
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: var(--shadow);
+
+  // ── Header ────────────────────────────────────────────────
+  &__header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.25rem 1.75rem;
+    background: var(--ink);
+    color: var(--paper);
+    gap: 1rem;
+    flex-wrap: wrap;
+
+    :root[data-theme='dark'] & {
+      background: var(--bg-elevated);
+      border-bottom: 1px solid var(--rule);
+      color: var(--ink);
+    }
+
+    @include bp-sm {
+      padding: 1rem 1.25rem;
+    }
+  }
+
+  &__dates {
+    @include font-serif;
+    font-size: 1.5rem;
+    font-weight: 400;
+    letter-spacing: -0.02em;
+    line-height: 1.1;
+    color: inherit;
+
+    @include bp-sm {
+      font-size: 1.2rem;
+    }
+  }
+
+  &__header-right {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 0.35rem;
+  }
+
+  &__freq-pill {
+    font-size: 0.68rem;
+    font-weight: 700;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    padding: 3px 10px;
+    border-radius: 4px;
+    background: rgba(255, 255, 255, 0.15);
+    color: inherit;
+
+    :root[data-theme='dark'] & {
+      background: var(--bg-sunken);
+      color: var(--ink-faint);
+    }
+  }
+
+  &__countdown {
+    font-size: 0.8rem;
+    font-weight: 600;
+    opacity: 0.75;
+  }
+
+  // ── Paycheck row ──────────────────────────────────────────
+  &__paycheck-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 1.75rem;
+    background: color-mix(in oklab, var(--accent) 8%, var(--paper));
+    border-bottom: 1px solid var(--rule);
+
+    @include bp-sm {
+      padding-left: 1.25rem;
+      padding-right: 1.25rem;
+    }
+  }
+
+  &__row-label {
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--ink-faint);
+  }
+
+  &__paycheck-amount {
+    @include font-serif;
+    font-size: 1.9rem;
+    font-weight: 400;
+    letter-spacing: -0.02em;
+    color: var(--ink);
+    font-feature-settings: 'tnum' 1;
+  }
+
+  // ── Bills section ─────────────────────────────────────────
+  &__bills {
+    padding: 1.25rem 1.75rem;
+
+    @include bp-sm {
+      padding-left: 1.25rem;
+      padding-right: 1.25rem;
+    }
+  }
+
+  &__section-label {
+    font-size: 0.68rem;
+    font-weight: 700;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--ink-faint);
+    margin-bottom: 0.85rem;
+  }
+
+  &__no-bills {
+    color: var(--ink-faint);
+    font-style: italic;
+    font-size: 0.9rem;
+    padding: 0.5rem 0;
+  }
+
+  &__bill-list {
+    display: flex;
+    flex-direction: column;
+  }
+
+  &__bill-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1rem;
+    padding: 0.65rem 0;
+    border-bottom: 1px solid var(--rule);
+
+    &:last-child {
+      border-bottom: none;
+    }
+  }
+
+  &__bill-info {
+    flex: 1;
+    min-width: 0;
+  }
+
+  &__bill-name {
+    font-weight: 600;
+    font-size: 0.93rem;
+    display: block;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  &__bill-due {
+    font-size: 0.76rem;
+    color: var(--ink-faint);
+  }
+
+  &__bill-right {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    flex-shrink: 0;
+  }
+
+  &__bill-amount {
+    font-size: 0.95rem;
+    font-weight: 600;
+    min-width: 72px;
+    text-align: right;
+  }
+
+  // ── Footer ────────────────────────────────────────────────
+  &__footer {
+    padding: 0.85rem 1.75rem;
+    background: var(--bg-elevated);
+    border-top: 1px solid var(--rule);
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+
+    @include bp-sm {
+      padding-left: 1.25rem;
+      padding-right: 1.25rem;
+    }
+  }
+
+  &__footer-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 0.88rem;
+    color: var(--ink-soft);
+
+    .mono {
+      font-weight: 600;
+      color: var(--ink);
+    }
+  }
+
+  &__remaining {
+    font-weight: 700;
+    font-size: 0.95rem;
+    padding-top: 0.4rem;
+    border-top: 1px solid var(--rule);
+    margin-top: 0.25rem;
+
+    &--positive .mono { color: var(--gain); }
+    &--negative .mono { color: var(--warn); }
+  }
+}
