@@ -1,0 +1,12 @@
+{
+  "name": "ledgr",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "build": "cd client && npm install && npm run build",
+    "start": "cd server && node server.js",
+    "dev:client": "cd client && npm run dev",
+    "dev:server": "cd server && node --watch server.js",
+    "install:all": "cd client && npm install && cd ../server && npm install"
+  }
+}

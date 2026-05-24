@@ -1,0 +1,511 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Ledgr — Your money, organised.</title>
+  <meta name="description" content="AI-powered personal budget tracker. Pay-period allocation, bill tracking, savings goals, and Claude-powered document import." />
+  <meta property="og:title" content="Ledgr — Your money, organised." />
+  <meta property="og:description" content="AI-powered personal budget tracker built with React, Node.js, and Claude." />
+  <meta property="og:type" content="website" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;1,9..144,400;1,9..144,500&family=Manrope:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg:         #0e0e11;
+      --bg-card:    #16161a;
+      --rule:       #2e2e3a;
+      --ink:        #e2e2e8;
+      --ink-soft:   #9898a8;
+      --ink-faint:  #5a5a6e;
+      --accent:     #34d399;
+      --accent-soft:#0a2419;
+      --gain:       #6ee7b7;
+      --warn:       #fde047;
+      --info:       #38bdf8;
+      --danger:     #f87171;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Manrope', sans-serif;
+      background: var(--bg);
+      color: var(--ink);
+      line-height: 1.6;
+      min-height: 100vh;
+    }
+
+    a { color: inherit; text-decoration: none; }
+
+    /* ── NAV ── */
+    nav {
+      position: sticky; top: 0; z-index: 100;
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 1.1rem 2.5rem;
+      background: rgba(14,14,17,0.85);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--rule);
+    }
+    .nav-brand {
+      font-family: 'Fraunces', serif;
+      font-style: italic;
+      font-size: 1.5rem;
+      font-weight: 500;
+      color: var(--ink);
+      letter-spacing: -0.02em;
+      display: flex; align-items: baseline; gap: 0.2rem;
+    }
+    .nav-brand::after { content: '·'; color: var(--accent); font-style: normal; }
+    .nav-links { display: flex; gap: 1.5rem; align-items: center; }
+    .nav-links a {
+      font-size: 0.88rem; font-weight: 500;
+      color: var(--ink-soft); transition: color 0.15s;
+    }
+    .nav-links a:hover { color: var(--ink); }
+    .nav-cta {
+      padding: 0.5rem 1.1rem;
+      background: var(--accent); color: #000 !important;
+      border-radius: 6px; font-weight: 700;
+      font-size: 0.85rem; letter-spacing: 0.02em;
+      transition: opacity 0.15s;
+    }
+    .nav-cta:hover { opacity: 0.88; }
+
+    /* ── HERO ── */
+    .hero {
+      max-width: 860px; margin: 0 auto;
+      padding: 7rem 2rem 5rem;
+      text-align: center;
+    }
+    .eyebrow {
+      display: inline-block;
+      font-size: 0.7rem; font-weight: 700;
+      letter-spacing: 0.2em; text-transform: uppercase;
+      color: var(--accent); margin-bottom: 1.5rem;
+    }
+    .hero h1 {
+      font-family: 'Fraunces', serif;
+      font-size: clamp(3rem, 7vw, 5.5rem);
+      font-weight: 400; line-height: 1.05;
+      letter-spacing: -0.03em;
+      margin-bottom: 1.5rem;
+    }
+    .hero h1 em { font-style: italic; color: var(--accent); }
+    .hero p {
+      font-size: clamp(1rem, 2vw, 1.2rem);
+      color: var(--ink-soft); max-width: 52ch;
+      margin: 0 auto 2.5rem; line-height: 1.7;
+    }
+    .hero-actions {
+      display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;
+    }
+    .btn-primary {
+      padding: 0.85rem 2rem;
+      background: var(--accent); color: #000;
+      border-radius: 8px; font-weight: 700;
+      font-size: 0.95rem; letter-spacing: 0.02em;
+      transition: all 0.15s; display: inline-flex;
+      align-items: center; gap: 0.5rem;
+    }
+    .btn-primary:hover { opacity: 0.88; transform: translateY(-1px); }
+    .btn-ghost {
+      padding: 0.85rem 2rem;
+      background: transparent; color: var(--ink);
+      border: 1px solid var(--rule); border-radius: 8px;
+      font-weight: 600; font-size: 0.95rem;
+      transition: all 0.15s; display: inline-flex;
+      align-items: center; gap: 0.5rem;
+    }
+    .btn-ghost:hover { border-color: var(--ink-soft); transform: translateY(-1px); }
+
+    /* ── PREVIEW ── */
+    .preview {
+      max-width: 1100px; margin: 0 auto;
+      padding: 0 2rem 6rem;
+    }
+    .preview-window {
+      background: var(--bg-card);
+      border: 1px solid var(--rule);
+      border-radius: 16px;
+      overflow: hidden;
+      box-shadow: 0 40px 80px -20px rgba(0,0,0,0.6);
+    }
+    .preview-bar {
+      background: #0b0b0e;
+      padding: 0.9rem 1.25rem;
+      display: flex; align-items: center; gap: 0.5rem;
+      border-bottom: 1px solid var(--rule);
+    }
+    .dot { width: 11px; height: 11px; border-radius: 50%; }
+    .dot-r { background: #ff5f57; }
+    .dot-y { background: #febc2e; }
+    .dot-g { background: #28c840; }
+    .preview-url {
+      margin-left: auto; margin-right: auto;
+      background: #18181c; border: 1px solid var(--rule);
+      border-radius: 6px; padding: 0.3rem 1rem;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.78rem; color: var(--ink-faint);
+    }
+    .preview-content {
+      display: grid; grid-template-columns: 200px 1fr;
+      min-height: 420px;
+    }
+    .preview-sidebar {
+      background: #0e0e11;
+      border-right: 1px solid var(--rule);
+      padding: 1.5rem 1rem;
+      display: flex; flex-direction: column; gap: 0.25rem;
+    }
+    .preview-brand {
+      font-family: 'Fraunces', serif; font-style: italic;
+      font-size: 1.3rem; color: var(--ink);
+      padding: 0 0.5rem 1.25rem;
+      border-bottom: 1px solid var(--rule); margin-bottom: 0.75rem;
+    }
+    .preview-brand::after { content: '·'; color: var(--accent); font-style: normal; margin-left: 0.15rem; }
+    .preview-nav-item {
+      display: flex; align-items: center; gap: 0.6rem;
+      padding: 0.55rem 0.75rem; border-radius: 6px;
+      font-size: 0.82rem; color: var(--ink-soft);
+    }
+    .preview-nav-item.active {
+      background: var(--accent-soft); color: var(--accent);
+      font-weight: 700; box-shadow: inset 3px 0 0 var(--accent);
+    }
+    .preview-nav-num {
+      font-family: 'Fraunces', serif; font-style: italic;
+      font-size: 0.75rem; opacity: 0.55;
+    }
+    .preview-nav-item.active .preview-nav-num { opacity: 1; color: var(--accent); }
+    .preview-main {
+      padding: 1.5rem; display: flex; flex-direction: column; gap: 1rem;
+    }
+    .preview-stat-row {
+      display: grid; grid-template-columns: repeat(4, 1fr); gap: 0.75rem;
+    }
+    .preview-stat {
+      background: var(--bg); border: 1px solid var(--rule);
+      border-radius: 8px; padding: 1rem;
+      position: relative; overflow: hidden;
+    }
+    .preview-stat::after {
+      content: ''; position: absolute;
+      right: -10px; bottom: -10px;
+      width: 60px; height: 60px;
+      border-radius: 50%;
+      background: color-mix(in oklab, var(--accent) 12%, transparent);
+      filter: blur(20px);
+    }
+    .preview-stat-label {
+      font-size: 0.58rem; letter-spacing: 0.15em; text-transform: uppercase;
+      color: var(--ink-faint); font-weight: 700; margin-bottom: 0.4rem;
+    }
+    .preview-stat-value {
+      font-family: 'Fraunces', serif;
+      font-size: 1.4rem; font-weight: 400; color: var(--ink);
+      letter-spacing: -0.02em;
+    }
+    .preview-stat-sub { font-size: 0.7rem; color: var(--ink-soft); margin-top: 0.2rem; }
+    .preview-card {
+      background: var(--bg); border: 1px solid var(--rule);
+      border-radius: 8px; padding: 1rem;
+    }
+    .preview-card-head {
+      font-size: 0.7rem; font-weight: 700; letter-spacing: 0.15em;
+      text-transform: uppercase; color: var(--accent);
+      margin-bottom: 0.75rem;
+    }
+    .preview-row {
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 0.4rem 0; border-bottom: 1px solid var(--rule);
+      font-size: 0.8rem;
+    }
+    .preview-row:last-child { border-bottom: none; }
+    .preview-pill {
+      font-size: 0.6rem; font-weight: 700; letter-spacing: 0.05em;
+      text-transform: uppercase; padding: 1px 6px; border-radius: 3px;
+    }
+    .pill-needs { background: #0a1e2e; color: #38bdf8; }
+    .pill-wants { background: #2d2200; color: #fde047; }
+    .mono { font-family: 'JetBrains Mono', monospace; }
+
+    /* ── FEATURES ── */
+    .features {
+      max-width: 1100px; margin: 0 auto;
+      padding: 2rem 2rem 6rem;
+    }
+    .section-eyebrow {
+      text-align: center;
+      font-size: 0.7rem; font-weight: 700;
+      letter-spacing: 0.2em; text-transform: uppercase;
+      color: var(--accent); margin-bottom: 1rem;
+    }
+    .section-title {
+      font-family: 'Fraunces', serif;
+      font-size: clamp(2rem, 4vw, 3rem);
+      font-weight: 400; text-align: center;
+      letter-spacing: -0.02em; margin-bottom: 0.75rem;
+    }
+    .section-sub {
+      text-align: center; color: var(--ink-soft);
+      font-size: 1rem; max-width: 52ch;
+      margin: 0 auto 3.5rem;
+    }
+    .feature-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 1.25rem;
+    }
+    .feature-card {
+      background: var(--bg-card); border: 1px solid var(--rule);
+      border-radius: 12px; padding: 1.75rem;
+      transition: border-color 0.2s;
+    }
+    .feature-card:hover { border-color: var(--accent); }
+    .feature-icon {
+      font-size: 1.75rem; margin-bottom: 1rem;
+      display: inline-block;
+    }
+    .feature-title {
+      font-family: 'Fraunces', serif; font-size: 1.2rem;
+      font-weight: 500; margin-bottom: 0.5rem;
+      letter-spacing: -0.01em;
+    }
+    .feature-desc { color: var(--ink-soft); font-size: 0.92rem; line-height: 1.65; }
+
+    /* ── TECH ── */
+    .tech {
+      max-width: 1100px; margin: 0 auto;
+      padding: 2rem 2rem 6rem;
+    }
+    .tech-grid {
+      display: flex; flex-wrap: wrap;
+      gap: 0.75rem; justify-content: center;
+      margin-top: 2.5rem;
+    }
+    .tech-chip {
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      background: var(--bg-card); border: 1px solid var(--rule);
+      border-radius: 8px; padding: 0.6rem 1.1rem;
+      font-size: 0.85rem; font-weight: 600;
+      color: var(--ink-soft);
+    }
+    .tech-chip span { font-size: 1.1rem; }
+
+    /* ── FOOTER ── */
+    footer {
+      border-top: 1px solid var(--rule);
+      padding: 2rem 2.5rem;
+      display: flex; justify-content: space-between;
+      align-items: center; flex-wrap: wrap; gap: 1rem;
+      color: var(--ink-faint); font-size: 0.85rem;
+    }
+    .footer-brand {
+      font-family: 'Fraunces', serif; font-style: italic;
+      font-size: 1.1rem; color: var(--ink-soft);
+    }
+    .footer-links { display: flex; gap: 1.5rem; }
+    .footer-links a { color: var(--ink-faint); transition: color 0.15s; }
+    .footer-links a:hover { color: var(--ink); }
+
+    @media (max-width: 720px) {
+      nav { padding: 1rem 1.25rem; }
+      .preview-content { grid-template-columns: 1fr; }
+      .preview-sidebar { display: none; }
+      .preview-stat-row { grid-template-columns: repeat(2, 1fr); }
+      footer { justify-content: center; text-align: center; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <div class="nav-brand">Ledgr</div>
+    <div class="nav-links">
+      <a href="#features">Features</a>
+      <a href="#tech">Stack</a>
+      <a href="https://github.com/joshuaward/ledgr" target="_blank" rel="noopener">GitHub</a>
+      <a href="https://github.com/joshuaward/ledgr" class="nav-cta" target="_blank" rel="noopener">View source ↗</a>
+    </div>
+  </nav>
+
+  <section class="hero">
+    <span class="eyebrow">Open source · Self-hosted</span>
+    <h1>Your money,<br /><em>organised.</em></h1>
+    <p>Ledgr allocates every paycheck against your bills automatically — then lets Claude read your pay stubs and statements so setup takes minutes, not hours.</p>
+    <div class="hero-actions">
+      <a href="https://github.com/joshuaward/ledgr" class="btn-primary" target="_blank" rel="noopener">
+        ★ Star on GitHub
+      </a>
+      <a href="https://github.com/joshuaward/ledgr#readme" class="btn-ghost" target="_blank" rel="noopener">
+        Read the docs →
+      </a>
+    </div>
+  </section>
+
+  <div class="preview">
+    <div class="preview-window">
+      <div class="preview-bar">
+        <div class="dot dot-r"></div>
+        <div class="dot dot-y"></div>
+        <div class="dot dot-g"></div>
+        <div class="preview-url">localhost:5173</div>
+      </div>
+      <div class="preview-content">
+        <div class="preview-sidebar">
+          <div class="preview-brand">Ledgr</div>
+          <div class="preview-nav-item active">
+            <span class="preview-nav-num">01</span> Dashboard
+          </div>
+          <div class="preview-nav-item">
+            <span class="preview-nav-num">02</span> Paycheck
+          </div>
+          <div class="preview-nav-item">
+            <span class="preview-nav-num">03</span> Bills
+          </div>
+          <div class="preview-nav-item">
+            <span class="preview-nav-num">04</span> Savings
+          </div>
+          <div class="preview-nav-item">
+            <span class="preview-nav-num">05</span> Insights
+          </div>
+          <div class="preview-nav-item">
+            <span class="preview-nav-num">06</span> Import
+          </div>
+        </div>
+        <div class="preview-main">
+          <div class="preview-stat-row">
+            <div class="preview-stat">
+              <div class="preview-stat-label">Monthly Income</div>
+              <div class="preview-stat-value mono">$6,840</div>
+              <div class="preview-stat-sub">avg last 6 paychecks</div>
+            </div>
+            <div class="preview-stat">
+              <div class="preview-stat-label">Monthly Bills</div>
+              <div class="preview-stat-value mono">$3,210</div>
+              <div class="preview-stat-sub">12 active bills</div>
+            </div>
+            <div class="preview-stat">
+              <div class="preview-stat-label">Savings Rate</div>
+              <div class="preview-stat-value" style="color: var(--gain)">18.4%</div>
+              <div class="preview-stat-sub">target 20%</div>
+            </div>
+            <div class="preview-stat">
+              <div class="preview-stat-label">Next Paycheck</div>
+              <div class="preview-stat-value">6 days</div>
+              <div class="preview-stat-sub">Jun 1 · $3,420</div>
+            </div>
+          </div>
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem;">
+            <div class="preview-card">
+              <div class="preview-card-head">Bills this period</div>
+              <div class="preview-row">
+                <span>Mortgage</span>
+                <span class="mono" style="color: var(--ink-soft)">$1,840</span>
+                <span class="preview-pill pill-needs">needs</span>
+              </div>
+              <div class="preview-row">
+                <span>Verizon</span>
+                <span class="mono" style="color: var(--ink-soft)">$85</span>
+                <span class="preview-pill pill-needs">needs</span>
+              </div>
+              <div class="preview-row">
+                <span>Netflix</span>
+                <span class="mono" style="color: var(--ink-soft)">$22</span>
+                <span class="preview-pill pill-wants">wants</span>
+              </div>
+            </div>
+            <div class="preview-card">
+              <div class="preview-card-head">50 / 30 / 20 lens</div>
+              <div class="preview-row">
+                <span style="color: var(--info)">Needs</span>
+                <span class="mono">51.2%</span>
+                <span style="font-size: 0.7rem; color: var(--warn)">↑ target 50</span>
+              </div>
+              <div class="preview-row">
+                <span style="color: var(--warn)">Wants</span>
+                <span class="mono">28.4%</span>
+                <span style="font-size: 0.7rem; color: var(--gain)">✓ on track</span>
+              </div>
+              <div class="preview-row">
+                <span style="color: var(--gain)">Savings</span>
+                <span class="mono">18.4%</span>
+                <span style="font-size: 0.7rem; color: var(--warn)">↑ target 20</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <section class="features" id="features">
+    <div class="section-eyebrow">What it does</div>
+    <h2 class="section-title">Smart budgeting, <em style="font-style:italic; font-family:'Fraunces',serif">zero friction.</em></h2>
+    <p class="section-sub">Built around how people actually get paid — every two weeks — not abstract monthly averages.</p>
+
+    <div class="feature-grid">
+      <div class="feature-card">
+        <div class="feature-icon">⚡</div>
+        <div class="feature-title">Pay-period allocation engine</div>
+        <div class="feature-desc">Every paycheck is automatically allocated forward — covering bills due in the next 16 days, groceries, allowance, sinking funds, and savings goals in priority order.</div>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">✦</div>
+        <div class="feature-title">AI document import</div>
+        <div class="feature-desc">Drop a pay stub or bill statement. Claude reads it and extracts income and bill data automatically — net pay, employer, due dates, amounts. You review and apply.</div>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">◎</div>
+        <div class="feature-title">50 / 30 / 20 lens</div>
+        <div class="feature-desc">Every paycheck is measured against the 50/30/20 benchmark — needs, wants, savings. Colour-coded and tracked over time so you see the trend, not just the snapshot.</div>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">◈</div>
+        <div class="feature-title">Sinking funds</div>
+        <div class="feature-desc">Set money aside each paycheck for predictable-but-irregular expenses. Annual insurance, car registration, holiday gifts. The bill arrives. You feel nothing.</div>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">⊕</div>
+        <div class="feature-title">Multiple budgets</div>
+        <div class="feature-desc">Create separate budgets for different scenarios — household, personal, partner. Switch between them instantly from the sidebar. Each is fully isolated.</div>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">◐</div>
+        <div class="feature-title">Light &amp; dark themes</div>
+        <div class="feature-desc">A considered design system with BEM-structured SCSS, CSS custom properties for runtime theming, and Fraunces serif type — opinionated but not over-designed.</div>
+      </div>
+    </div>
+  </section>
+
+  <section class="tech" id="tech">
+    <div class="section-eyebrow">Built with</div>
+    <h2 class="section-title">Modern full-stack stack.</h2>
+    <p class="section-sub">Self-hosted, open-source, and dependency-light.</p>
+    <div class="tech-grid">
+      <div class="tech-chip"><span>⚛</span> React 18</div>
+      <div class="tech-chip"><span>⚡</span> Vite</div>
+      <div class="tech-chip"><span>🎨</span> SCSS / BEM</div>
+      <div class="tech-chip"><span>🟢</span> Node.js</div>
+      <div class="tech-chip"><span>🚂</span> Express</div>
+      <div class="tech-chip"><span>✦</span> Claude API</div>
+      <div class="tech-chip"><span>📊</span> Recharts</div>
+      <div class="tech-chip"><span>🔀</span> React Router</div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="footer-brand">Ledgr</div>
+    <div class="footer-links">
+      <a href="https://github.com/joshuaward/ledgr" target="_blank" rel="noopener">GitHub</a>
+      <a href="https://github.com/joshuaward/ledgr/issues" target="_blank" rel="noopener">Issues</a>
+    </div>
+    <span>MIT License · Est. 2026</span>
+  </footer>
+
+</body>
+</html>
